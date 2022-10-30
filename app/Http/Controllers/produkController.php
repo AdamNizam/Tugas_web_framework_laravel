@@ -101,16 +101,22 @@ class produkController extends Controller
      */
     public function update(Request $request)
     {
+        try {
+            
         //
             $data = array(
-            'produk_id' => $request->post('produk_id'),
-            'kategori_id' => $request->post('kategori_id'),
+            'id_produk' => $request->post('id_produk'),
+            'id_kategori' => $request->post('id_kategori'),
             'nama' => $request->post('nama'),
-            'deskripsi' => $request->post('deskripsi'),
+            'dekskripsi' => $request->post('dekskripsi'),
             'harga' => $request->post('harga'),
-            'stok' => $request->post('stok')
+            'stock' => $request->post('stock')
         );
-        DB::table('produks')->where('produk_id', '=', $request->post('produk_id'))->update($data);
+        DB::table('produks')->where('id_produk', '=', $request->post('id_produk'))->update($data);
+        // return redirect('produk');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

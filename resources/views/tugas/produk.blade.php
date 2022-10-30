@@ -1,6 +1,59 @@
 @extends('tugas.master')
 @section('title', 'Produk')
 @section('content')
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit DATA</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/produk/update" method="post">
+          @forEach ( $produks as $produk )                    
+          @csrf
+              <div class="form-group">
+                   <input type="hidden" name="produk_id" value="<?= $produk->id_produk?>" class="form-control">
+                    <label for="id_kategori">Nama kategori</label>
+                    <select name="id_kategori" id="id_kategori" class="form-control select2" style="width: 100%;">
+                    <option value="<?= $produk->id_kategori ?>" selected><?= $produk->kategori ?></option>
+                     @foreach($produks as $row)
+                    <option value="<?= $row->id_kategori ?>"><?= $row->kategori ?></option>
+                     @endforeach
+                      </select>
+                      </div>
+                                <div class="form-group">
+                                    <label for="nama">Nama</label>
+                                    <input type="text" name="nama" value="<?= $produk->nama ?>" class="form-control" placeholder="nama produk">
+                                </div>
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <input type="text" name="deskripsi" value="<?= $produk->dekskripsi?>" class="form-control" placeholder="deskripsi">
+                                </div>
+                                <div class="form-group">
+                                    <label for="harga">Harga</label>
+                                    <input type="text" name="harga" value="<?= $produk->harga ?>" class="form-control" placeholder="harga">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stok">Stok</label>
+                                    <input type="text" name="stok" value="<?= $produk->stock ?>" class="form-control" placeholder="stok">
+                                </div>
+                                @endforeach
+                    </div>
+                    <div class="modal-footer">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
    <form class="mt-4" role="search">
      <div class="row">
@@ -45,14 +98,14 @@
         </form>
       </td>
       <td>
-        <button type="button" class="btn btn-warning"><i class="bi bi-pencil-square"></i></button>
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="bi bi-pencil-square"></i></button>
         </td>
     </tr>    
     @endForEach
   </tbody>
 </table>
 </div>
-<!-- Button trigger modal -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
